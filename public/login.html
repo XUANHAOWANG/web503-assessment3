@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>welcome to Gates N Fences</title>
+	<link rel="stylesheet" type="text/css" href="css/reset.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+</head>
+<body>
+	<div class="login_top clearfix">
+		<a href="index.html" class="login_logo"><img src="images/logo.png" height="100px"></a>	
+	</div>
+
+	<div class="login_form_bg">
+		<div class="login_form_wrap clearfix">
+			<div class="login_banner fl"></div>
+			<div class="slogan fl">Best Choice</div>
+			
+			<div class="login_form fr">
+				<div class="login_title clearfix">
+					<h1>Login</h1>
+					<a href="register.html">Register</a>
+				</div>
+				<div class="form_input">
+					<form>
+						<input type="text" id="username" name="username" class="name_input" placeholder="User Name">
+						
+						<input type="password" id="pwd" name="pwd" class="pass_input" placeholder="Password">
+						
+						<div class="more_input clearfix">
+							<input type="checkbox" name="">
+							<label>Remember Me</label>
+							<a href="#">forgot Password</a>
+						</div>
+						
+					</form>
+					<button type="button"onclick="check()" class="input_submit">Login</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="footer no-mp">
+		<div class="foot_link">
+			<a href="#">About Us</a>
+			<span>|</span>
+			<a href="#">Contact Us</a>
+			<span>|</span>
+			<a href="#">More information</a>		
+		</div> <p>All Rights Reserved</p>
+		<p>Phone：010-****888    *******8</p>
+	</div>
+	 <!-- The core Firebase JS SDK is always required and must be listed first -->
+	 <script src="/__/firebase/8.2.2/firebase-app.js"></script>
+
+	 <!-- TODO: Add SDKs for Firebase products that you want to use
+	  https://firebase.google.com/docs/web/setup#available-libraries -->
+	 <script src="/__/firebase/8.2.2/firebase-firestore.js"></script>
+ 
+	 <!-- Initialize Firebase -->
+	 <script src="/__/firebase/init.js"></script>
+	 <script src="index.js"></script>
+	 <script>
+let db = firebase.firestore();
+async function check() {
+	const username=await document.getElementById('username')
+	const pwd =await document.getElementById('pwd')
+	await db.collection('users').get()
+        .then((snapshot) => {
+			snapshot.forEach((doc) => {
+			 if(username.value===doc.data().name && pwd.value===doc.data().password){
+					alert('login successfully')
+					window.location="./index.html"
+					throw new Error//stop the loop
+				}
+				else{ 
+					alert('login failed, please try again')
+					window.location.reload
+					throw new Error
+				}
+				
+            });
+        })
+        .catch((err) => {
+            console.log('Error getting documents', err);
+        });
+}
+	 </script>
+</body>
+</html>
