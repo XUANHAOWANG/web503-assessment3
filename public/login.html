@@ -73,13 +73,11 @@ async function check() {
 					window.location="./index.html"
 					throw new Error//stop the loop
 				}
-				else{ 
-					alert('login failed, please try again')
-					window.location.reload
-					throw new Error
-				}
 				
             });
+			alert('login failed, please try again')
+					window.location.reload()
+		
         })
         .catch((err) => {
             console.log('Error getting documents', err);
